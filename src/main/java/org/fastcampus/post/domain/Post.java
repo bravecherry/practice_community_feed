@@ -2,6 +2,7 @@ package org.fastcampus.post.domain;
 
 import org.fastcampus.common.domain.PositiveIntegerCounter;
 import org.fastcampus.post.domain.content.PostContent;
+import org.fastcampus.post.domain.content.PostVisibleState;
 import org.fastcampus.user.domain.User;
 
 public class Post {
@@ -11,6 +12,7 @@ public class Post {
     private final User author;
     private final PostContent content;
     private final PositiveIntegerCounter likeCounter;
+    private PostVisibleState visibleState;
 
     public Post(User author, PostContent content) {
         if (author == null) {
@@ -19,6 +21,7 @@ public class Post {
         this.author = author;
         this.content = content;
         this.likeCounter = new PositiveIntegerCounter();
+        this.visibleState = PostVisibleState.PUBLIC;
     }
 
     public void like(User user) {
@@ -32,10 +35,11 @@ public class Post {
         likeCounter.decrease();
     }
 
-    public void updatePost(User user, String content) {
+    public void updatePost(User user, String content, PostVisibleState visibleState) {
         if (!author.equals(user)) {
             throw new IllegalArgumentException();
         }
         this.content.updateContent(content);
+        this.visibleState = visibleState;
     }
 }
