@@ -1,4 +1,4 @@
-package org.fastcampus.post.domain;
+package org.fastcampus.post.domain.content;
 
 public abstract class Content {
 
