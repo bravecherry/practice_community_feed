@@ -6,5 +6,5 @@
   * OCP 
     * 기존 코드의 수정 없이 확장이 가능했다. 
   * LSP
-* 공통의 객체를 만들면 발생할 수 있는 장점/단점? 
-  * PositiveIntegerCounter vs UserRelationCount
+* 공통의 객체를 만들면 발생할 수 있는 장점/단점
+  * common.domain.PositiveIntegerCounter vs user.domain.UserRelationCount
