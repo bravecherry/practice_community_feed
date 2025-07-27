@@ -9,11 +9,11 @@ public class CommentContent extends Content{
     }
 
     @Override
-    protected void checkLength() {
-        if (getContent() == null || getContent().isEmpty()) {
+    protected void checkLength(String content) {
+        if (content == null || content.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        if (getContent().length() > MAX_LENGTH) {
+        if (content.length() > MAX_LENGTH) {
             throw new IllegalArgumentException();
         }
     }
