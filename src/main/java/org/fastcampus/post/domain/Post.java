@@ -31,4 +31,11 @@ public class Post {
     public void dislike() {
         likeCounter.decrease();
     }
+
+    public void updatePost(User user, String content) {
+        if (!author.equals(user)) {
+            throw new IllegalArgumentException();
+        }
+        this.content.updateContent(content);
+    }
 }
