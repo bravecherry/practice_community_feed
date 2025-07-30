@@ -57,4 +57,20 @@ public class User {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserInfo getUserInfo() {
+        return this.userInfo;
+    }
+
+    public int getFollowingCount() {
+        return this.followingCounter.getCount();
+    }
+    public int getFollowerCount() {
+        return this.followerCounter.getCount();
+    }
+
 }
