@@ -1,5 +1,6 @@
 package org.fastcampus.user.service;
 
+import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.domain.User;
 import org.fastcampus.user.domain.UserInfo;
 import org.fastcampus.user.domain.UserProfileReadDto;

@@ -1,18 +1,28 @@
-package org.fastcampus.user.service;
+package org.fastcampus.user.application;
 
 import java.util.List;
 import java.util.Optional;
+import org.fastcampus.user.application.dto.CreateUserReqDto;
 import org.fastcampus.user.domain.User;
 import org.fastcampus.user.domain.UserInfo;
 import org.fastcampus.user.domain.UserProfileReadDto;
 import org.fastcampus.user.domain.UserProfileUpdateDto;
-import org.fastcampus.user.domain.repository.UserRepository;
+import org.fastcampus.user.application.interfaces.UserRepository;
 
 public class UserService {
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public User createUser(CreateUserReqDto reqDto) {
+        UserInfo userInfo = new UserInfo(reqDto.getName(), reqDto.getProfileImageUrl());
+        return userRepository.save(new User(null, userInfo));
     }
 
     public UserProfileReadDto getUserProfile(long userId) {
