@@ -1,6 +1,6 @@
 package org.fastcampus.user.application;
 
-import org.fastcampus.user.application.dto.UserFollowReqDto;
+import org.fastcampus.user.application.dto.FollowUserReqDto;
 import org.fastcampus.user.application.interfaces.UserRelationRepository;
 import org.fastcampus.user.domain.User;
 
@@ -14,7 +14,7 @@ public class UserRelationService {
         this.userService = userService;
     }
 
-    public void follow(UserFollowReqDto reqDto) {
+    public void follow(FollowUserReqDto reqDto) {
         User user = userService.getUser(reqDto.userId());
         User targetUser = userService.getUser(reqDto.targetUserId());
 
@@ -26,7 +26,7 @@ public class UserRelationService {
         userRelationRepository.save(user, targetUser);
     }
 
-    public void unfollow(UserFollowReqDto reqDto) {
+    public void unfollow(FollowUserReqDto reqDto) {
         User user = userService.getUser(reqDto.userId());
         User targetUser = userService.getUser(reqDto.targetUserId());
 
