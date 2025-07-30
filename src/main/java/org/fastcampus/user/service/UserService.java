@@ -45,11 +45,11 @@ public class UserService {
     }
 
     public void follow(User user, User targetUser) {
-        user.follow(targetUser);
+        user.follows(targetUser);
     }
 
     public void unfollow(User user, User targetUser) {
-        user.unfollow(targetUser);
+        user.unfollows(targetUser);
     }
 
 }
