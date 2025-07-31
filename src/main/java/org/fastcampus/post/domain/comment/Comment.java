@@ -46,4 +46,8 @@ public class Comment {
         }
         this.content.updateContent(comment);
     }
+
+    public boolean isAuthor(User author) {
+        return this.author.equals(author);
+    }
 }

@@ -1,5 +1,6 @@
 package org.fastcampus.post.domain.content;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import org.fastcampus.post.domain.common.DateTimeInfo;
 
@@ -26,5 +27,13 @@ public abstract class Content {
 
     public String getContent() {
         return content;
+    }
+
+    public Boolean isEdited() {
+        return updateDtm.isEdited();
+    }
+
+    public LocalDateTime getUpdateDtm() {
+        return updateDtm.getDateTime();
     }
 }

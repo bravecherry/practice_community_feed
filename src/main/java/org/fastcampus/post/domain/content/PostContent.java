@@ -1,5 +1,7 @@
 package org.fastcampus.post.domain.content;
 
+import java.time.LocalDateTime;
+
 public class PostContent extends Content{
 
     private static final int MIN_LENGTH = 5;
@@ -20,5 +22,9 @@ public class PostContent extends Content{
         if (content.length() > MAX_LENGTH) {
             throw new IllegalArgumentException();
         }
+    }
+
+    public LocalDateTime getCreatedAt() {
+
     }
 }
