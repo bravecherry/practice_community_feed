@@ -4,16 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.fastcampus.user.application.dto.CreateUserReqDto;
 import org.fastcampus.user.domain.User;
-import org.fastcampus.user.repository.FakeUserRepository;
 import org.junit.jupiter.api.Test;
 
 public class UserServiceTest {
     private final UserService userService;
-    private final FakeUserRepository userRepository;
 
-    public UserServiceTest(UserService userService, FakeUserRepository userRepository) {
+    public UserServiceTest(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @Test

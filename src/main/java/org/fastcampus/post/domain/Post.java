@@ -15,7 +15,6 @@ public class Post {
     private final PostContent content;
     private final PositiveIntegerCounter likeCounter;
     private PostVisibleState visibleState;
-    private LocalDateTime regDtm;
 
     public Post(Long id, User author, PostContent content, PostVisibleState visibleState) {
         if (author == null) {
@@ -26,17 +25,16 @@ public class Post {
         this.content = content;
         this.visibleState = visibleState;
         this.likeCounter = new PositiveIntegerCounter();
-        this.regDtm = LocalDateTime.now();
     }
 
-    public void like(User user) {
+    public void getLike(User user) {
         if (this.author.equals(user)) {
             throw new IllegalArgumentException();
         }
         likeCounter.increase();
     }
 
-    public void dislike() {
+    public void loseLike() {
         likeCounter.decrease();
     }
 
@@ -56,7 +54,7 @@ public class Post {
         return id;
     }
 
-    public String getContent() {
+    public String getContentMessage() {
         return content.getContent();
     }
 
@@ -68,18 +66,20 @@ public class Post {
         return likeCounter.getCount();
     }
 
-    public PostVisibleState getFollowerCount() {
+    public PostVisibleState getVisibleState() {
         return visibleState;
-    }
-
-    public LocalDateTime getRegDtm() {
-        return regDtm;
     }
 
     public Boolean isEdited() {
         return content.isEdited();
     }
-    public LocalDateTime getUpdateDtm() {
-        return content.getUpdateDtm();
+
+    public LocalDateTime getRegDtm() {
+        return content.getRegDtm();
     }
+
+    public LocalDateTime getModDtm() {
+        return content.getModDtm();
+    }
+
 }

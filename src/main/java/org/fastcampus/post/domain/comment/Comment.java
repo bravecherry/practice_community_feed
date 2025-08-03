@@ -1,5 +1,6 @@
 package org.fastcampus.post.domain.comment;
 
+import java.time.LocalDateTime;
 import org.fastcampus.common.domain.PositiveIntegerCounter;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.content.Content;
@@ -50,4 +51,13 @@ public class Comment {
     public boolean isAuthor(User author) {
         return this.author.equals(author);
     }
+
+    public Integer getLikeCount() {
+        return likeCounter.getCount();
+    }
+
+    public String getContent() {
+        return content.getContent();
+    }
+
 }

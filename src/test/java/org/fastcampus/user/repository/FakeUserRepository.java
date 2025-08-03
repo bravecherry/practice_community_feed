@@ -14,6 +14,7 @@ public class FakeUserRepository implements UserRepository {
     public User save(User user) {
         if (users.containsKey(user.getId())) {
             users.put(user.getId(), user);
+            return user;
         }
         long id = users.size() + 1;
         User newUser = new User(id, user.getUserInfo());

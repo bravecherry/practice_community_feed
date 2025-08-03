@@ -1,10 +1,8 @@
 package org.fastcampus.post.application;
 
-import java.util.List;
 import org.fastcampus.post.application.dto.CreatePostReqDto;
-import org.fastcampus.post.application.dto.ReadFeedListResDto;
 import org.fastcampus.post.application.dto.UpdatePostReqDto;
-import org.fastcampus.post.application.dto.db.PostWithCommentCount;
+import org.fastcampus.post.application.interfaces.PostRelationRepository;
 import org.fastcampus.post.application.interfaces.PostRepository;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.content.PostContent;
@@ -14,9 +12,13 @@ import org.fastcampus.user.domain.User;
 public class PostService {
     private final UserService userService;
     private final PostRepository postRepository;
-    public PostService(UserService userService, PostRepository postRepository) {
+    private final PostRelationRepository postRelationRepository;
+    public PostService(UserService userService,
+            PostRepository postRepository,
+            PostRelationRepository postRelationRepository) {
         this.userService = userService;
         this.postRepository = postRepository;
+        this.postRelationRepository = postRelationRepository;
     }
 
     public Post getPost(Long id) {
@@ -44,25 +46,21 @@ public class PostService {
         if (post.isAuthor(user)) {
             throw new IllegalArgumentException();
         }
-        if (!postRepository.alreadyLiked(user, post)) {
-            post.like(user);
-            postRepository.like(user, post);
+        if (postRelationRepository.alreadyLiked(user, post)) {
+            throw new IllegalArgumentException();
         }
+        post.getLike(user);
+        postRelationRepository.like(user, post);
     }
 
     public void dislike(Long userId, Long postId) {
         User user = userService.getUser(userId);
         Post post = postRepository.findById(postId).orElseThrow(IllegalArgumentException::new);
-        if (postRepository.alreadyLiked(user, post)) {
-            post.dislike();
-            postRepository.dislike(user, post);
+        if (!postRelationRepository.alreadyLiked(user, post)) {
+            throw new IllegalArgumentException();
         }
-    }
-
-    public ReadFeedListResDto getFeedList(Long userId) {
-        User user = userService.getUser(userId);
-        List<PostWithCommentCount> list = postRepository.getPostsByFollowersOrderByRegDtmDesc(user);
-        return new ReadFeedListResDto(list, user);
+        post.loseLike();
+        postRelationRepository.dislike(user, post);
     }
 
 }
