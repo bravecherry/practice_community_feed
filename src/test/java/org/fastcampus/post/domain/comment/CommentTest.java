@@ -30,11 +30,11 @@ public class CommentTest {
     }
 
     @Test
-    void givenCreated_whenLikes_thenLikeCounterIncrease() {
+    void givenCreated_whenLikes_thenGetLikeCounterIncrease() {
         //given
         User otherUser = new User(2L, new UserInfo("user2", ""));
         //when
-        comment.like(otherUser);
+        comment.getLike(otherUser);
         //then
         assertEquals(1, comment.getLikeCount());
     }
@@ -43,16 +43,16 @@ public class CommentTest {
     void givenCreated_whenSameUserLikes_thenErrorThrows() {
         //given
         //when, then
-        assertThrows(IllegalArgumentException.class, () -> comment.like(commentAuthor));
+        assertThrows(IllegalArgumentException.class, () -> comment.getLike(commentAuthor));
     }
 
     @Test
-    void givenCreated_whenDislikes_thenLikeCounterDecrease() {
+    void givenCreated_whenDislikes_thenGetLikeCounterDecrease() {
         //given
         User otherUser = new User(2L, new UserInfo("user2", ""));
         //when
-        comment.like(otherUser);
-        comment.dislike();
+        comment.getLike(otherUser);
+        comment.loseLike();
         //then
         assertEquals(0, comment.getLikeCount());
     }
@@ -64,7 +64,7 @@ public class CommentTest {
         //when
         comment.updateComment(commentAuthor, updateContent);
         //then
-        assertEquals(updateContent, comment.getContent());
+        assertEquals(updateContent, comment.getContentMessage());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class CommentTest {
     }
 
     @Test
-    void givenCreated_thenLikeCountIsZero() {
+    void givenCreated_thenGetLikeCountIsZero() {
         assertEquals(0, comment.getLikeCount());
     }
 

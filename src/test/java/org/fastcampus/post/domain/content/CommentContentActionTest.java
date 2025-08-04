@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class CommentContentTest {
+public class CommentContentActionTest {
 
     @Test
     void givenContent_thenCreated() {

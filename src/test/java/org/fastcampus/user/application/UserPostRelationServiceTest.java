@@ -11,7 +11,7 @@ import org.fastcampus.user.repository.FakeUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class UserRelationServiceTest {
+class UserPostRelationServiceTest {
     private final FakeUserRepository userRepository = new FakeUserRepository();
     private final FakeUserRelationRepository userRelationRepository = new FakeUserRelationRepository();
     private final UserService userService = new UserService(userRepository);
