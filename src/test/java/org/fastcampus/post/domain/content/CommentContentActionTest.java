@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class CommentContentActionTest {
 
@@ -20,22 +24,26 @@ public class CommentContentActionTest {
         assertEquals(content, commentContent.getContent());
     }
 
-    @Test
-    void givenCreated_whenContentLengthShorterThanMin_thenThrowsError() {
-        //given
-        String content = "";
+    @ParameterizedTest
+    @NullAndEmptySource
+    void givenCreated_whenContentLengthShorterThanMin_thenThrowsError(String str) {
         //then
-        assertThrows(IllegalArgumentException.class, () -> new CommentContent(content));
+        assertThrows(IllegalArgumentException.class, () -> new CommentContent(str));
     }
 
     @Test
     void givenCreated_whenContentLengthLongerThanMax_thenThrowsError() {
         //given
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < 501; i++) {
-            stringBuilder.append("a");
-        }
-        String content = stringBuilder.toString();
+        String content = "a".repeat(101);
+        //then
+        assertThrows(IllegalArgumentException.class, () -> new CommentContent(content));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"뷁, 삵, 슳, 쉙, 뛣"})
+    void givenCreated_whenKoreanContentLengthLongerThanMax_thenThrowsError() {
+        //given
+        String content = "a".repeat(101);
         //then
         assertThrows(IllegalArgumentException.class, () -> new CommentContent(content));
     }

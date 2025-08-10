@@ -13,21 +13,14 @@ import org.fastcampus.post.domain.content.PostContent;
 import org.fastcampus.post.domain.content.PostVisibleState;
 import org.fastcampus.user.domain.User;
 import org.fastcampus.user.domain.UserInfo;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CommentTest {
 
-    private Comment comment;
-    private User commentAuthor;
-
-    @BeforeEach
-    public void setUp() {
-        User postAuthor = new User(1L, new UserInfo("user1", ""));
-        Post post = new Post(1L, postAuthor, new PostContent("aaaaa"), PostVisibleState.PUBLIC);
-        commentAuthor = new User(1L, new UserInfo("user1", ""));
-        comment = new Comment(1L, post, commentAuthor, new CommentContent("aaaaa"));
-    }
+    private final User postAuthor = new User(1L, new UserInfo("user1", ""));
+    private final Post post = new Post(1L, postAuthor, new PostContent("aaaaa"), PostVisibleState.PUBLIC);
+    private final User commentAuthor = new User(1L, new UserInfo("user1", ""));
+    private final Comment comment = new Comment(1L, post, commentAuthor, new CommentContent("aaaaa"));;
 
     @Test
     void givenCreated_whenLikes_thenGetLikeCounterIncrease() {

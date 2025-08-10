@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class PostContentActionTest {
 
@@ -20,10 +23,9 @@ public class PostContentActionTest {
         assertEquals(content, postContent.getContent());
     }
 
-    @Test
-    void givenCreated_whenContentLengthShorterThanMin_thenThrowsError() {
-        //given
-        String content = "";
+    @ParameterizedTest
+    @NullAndEmptySource
+    void givenCreated_whenContentLengthShorterThanMin_thenThrowsError(String content) {
         //then
         assertThrows(IllegalArgumentException.class, () -> new PostContent(content));
     }
@@ -31,11 +33,24 @@ public class PostContentActionTest {
     @Test
     void givenCreated_whenContentLengthLongerThanMax_thenThrowsError() {
         //given
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < 501; i++) {
-            stringBuilder.append("a");
-        }
-        String content = stringBuilder.toString();
+        String content = "a".repeat(501);
+        //then
+        assertThrows(IllegalArgumentException.class, () -> new PostContent(content));
+    }
+
+    @Test
+    void givenCreated_whenKoreanContentLengthLongerThanMax_thenThrowsError() {
+        //given
+        String content = "뷁".repeat(501);
+        //then
+        assertThrows(IllegalArgumentException.class, () -> new PostContent(content));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"뷁, 닭, 곩, 삵, 슳"})
+    void givenCreated_whenContentUsingParameterTestLengthLongerThanMax_thenThrowsError(String str) {
+        //given
+        String content = str.repeat(501);
         //then
         assertThrows(IllegalArgumentException.class, () -> new PostContent(content));
     }
@@ -51,13 +66,13 @@ public class PostContentActionTest {
         assertEquals(content, postContent.getContent());
     }
 
-    @Test
-    void givenContent_whenContentNotValid_thenThrowsException() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void givenEmptyContent_whenCreated_thenThrowsException(String emptyContent) {
         //given
-        String content = null;
         PostContent postContent = new PostContent("content");
         //then
-        assertThrows(IllegalArgumentException.class, () -> postContent.updateContent(content));
+        assertThrows(IllegalArgumentException.class, () -> postContent.updateContent(emptyContent));
     }
 
     @Test
