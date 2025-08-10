@@ -2,12 +2,17 @@ package org.fastcampus.post.domain.comment;
 
 import org.fastcampus.post.domain.common.ContentAction;
 import org.fastcampus.post.domain.Post;
+import org.fastcampus.post.domain.content.CommentContent;
 import org.fastcampus.post.domain.content.Content;
 import org.fastcampus.user.domain.User;
 
 public class Comment extends ContentAction {
 
     private final Post post;
+
+    public static Comment createComment(Post post, User author, String content) {
+        return new Comment(null, post, author, new CommentContent(content));
+    }
 
     public Comment(Long id, Post post, User author, Content content) {
         super(id, author, content);

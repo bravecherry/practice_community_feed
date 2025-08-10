@@ -4,7 +4,6 @@ import org.fastcampus.post.application.dto.CreatePostReqDto;
 import org.fastcampus.post.application.dto.UpdatePostReqDto;
 import org.fastcampus.post.application.interfaces.PostRepository;
 import org.fastcampus.post.domain.Post;
-import org.fastcampus.post.domain.content.PostContent;
 import org.fastcampus.user.domain.User;
 
 public class PostService {
@@ -18,7 +17,7 @@ public class PostService {
     }
 
     public Post create(User author, CreatePostReqDto reqDto) {
-        Post post = new Post(null, author, new PostContent(reqDto.content()), reqDto.visibleState());
+        Post post = Post.createPost(author, reqDto.content(), reqDto.visibleState());
         return postRepository.save(post);
     }
 

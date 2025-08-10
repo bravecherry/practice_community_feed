@@ -6,11 +6,11 @@ import org.fastcampus.post.application.dto.UpdateCommentReqDto;
 import org.fastcampus.post.application.interfaces.CommentRepository;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.comment.Comment;
-import org.fastcampus.post.domain.content.CommentContent;
 import org.fastcampus.user.domain.User;
 
 public class CommentService {
     private final CommentRepository commentRepository;
+
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
@@ -20,7 +20,7 @@ public class CommentService {
     }
 
     public Comment create(User author, Post post, CreateCommentReqDto reqDto) {
-        Comment comment = new Comment(null, post, author, new CommentContent(reqDto.content()));
+        Comment comment = Comment.createComment(post, author, reqDto.content());
         return commentRepository.save(comment);
     }
 
