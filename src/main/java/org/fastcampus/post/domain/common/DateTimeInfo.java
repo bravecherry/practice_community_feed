@@ -5,24 +5,29 @@ import java.time.LocalDateTime;
 public class DateTimeInfo {
 
     private boolean isEdited;
-    private LocalDateTime dateTime;
+    private LocalDateTime regDtm;
+    private LocalDateTime modDtm;
 
     public DateTimeInfo() {
         this.isEdited = false;
-        this.dateTime = LocalDateTime.now();
+        this.regDtm = LocalDateTime.now();
     }
 
     public void updateEdited() {
         this.isEdited = true;
-        this.dateTime = LocalDateTime.now();
+        this.modDtm = LocalDateTime.now();
     }
 
     public boolean isEdited() {
         return isEdited;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getRegDtm() {
+        return regDtm;
+    }
+
+    public LocalDateTime getModDtm() {
+        return modDtm;
     }
 
 }

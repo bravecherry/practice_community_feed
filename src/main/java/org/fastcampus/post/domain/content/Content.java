@@ -1,17 +1,17 @@
 package org.fastcampus.post.domain.content;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
 import org.fastcampus.post.domain.common.DateTimeInfo;
 
 public abstract class Content {
 
     private String content;
-    private DateTimeInfo updateDtm;
+    private DateTimeInfo dateTimeInfo;
 
     public Content(String content) {
         checkLength(content);
         this.content = content;
-        this.updateDtm = new DateTimeInfo();
+        this.dateTimeInfo = new DateTimeInfo();
     }
 
     protected abstract void checkLength(String content);
@@ -20,11 +20,24 @@ public abstract class Content {
         checkLength(content);
         if (!this.content.equals(content)) {
             this.content = content;
-            this.updateDtm.updateEdited();
+            this.dateTimeInfo.updateEdited();
         }
     }
 
     public String getContent() {
         return content;
     }
+
+    public Boolean isEdited() {
+        return dateTimeInfo.isEdited();
+    }
+
+    public LocalDateTime getRegDtm() {
+        return dateTimeInfo.getRegDtm();
+    }
+
+    public LocalDateTime getModDtm() {
+        return dateTimeInfo.getModDtm();
+    }
+
 }

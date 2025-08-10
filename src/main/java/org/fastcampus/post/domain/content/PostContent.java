@@ -21,4 +21,5 @@ public class PostContent extends Content{
             throw new IllegalArgumentException();
         }
     }
+
 }
