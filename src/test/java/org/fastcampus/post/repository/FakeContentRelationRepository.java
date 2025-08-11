@@ -12,18 +12,18 @@ public class FakeContentRelationRepository implements ContentRelationRepository 
 
     @Override
     public boolean alreadyLiked(User user, ContentAction contentAction) {
-        return map.contains(new Relation(user.getId(), contentAction.getId()));
+        return map.contains(new Relation(user, contentAction));
     }
 
     @Override
     public void like(User user, ContentAction contentAction) {
-        map.add(new Relation(user.getId(), contentAction.getId()));
+        map.add(new Relation(user, contentAction));
     }
 
     @Override
     public void dislike(User user, ContentAction contentAction) {
-        map.remove(new Relation(user.getId(), contentAction.getId()));
+        map.remove(new Relation(user, contentAction));
     }
 
-    record Relation(Long userId, Long contentId) {}
+    record Relation(User user, ContentAction contentAction) {}
 }
