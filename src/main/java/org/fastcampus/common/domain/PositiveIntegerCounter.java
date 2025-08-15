@@ -1,9 +1,14 @@
 package org.fastcampus.common.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Getter
 public class PositiveIntegerCounter {
     private int count;
 
-    public PositiveIntegerCounter() {
+    public PositiveIntegerCounter(Integer followingCount) {
         this.count = 0;
     }
 
@@ -18,7 +23,4 @@ public class PositiveIntegerCounter {
         this.count--;
     }
 
-    public int getCount() {
-        return count;
-    }
 }

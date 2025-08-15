@@ -1,6 +1,9 @@
 package org.fastcampus.user.domain;
 
+import lombok.Getter;
+
 public class UserProfileReadDto {
+    @Getter
     private final Long id;
     private final String username;
     private final String profileImageUrl;
@@ -9,14 +12,10 @@ public class UserProfileReadDto {
 
     public UserProfileReadDto(User user) {
         this.id = user.getId();
-        UserInfo userInfo = user.getUserInfo();
-        this.username = userInfo.getName();
-        this.profileImageUrl = userInfo.getProfileImageUrl();
+        this.username = user.getName();
+        this.profileImageUrl = user.getProfileImageUrl();
         this.followerCount = user.getFollowerCount();
         this.followingCount = user.getFollowingCount();
     }
 
-    public Long getId() {
-        return id;
-    }
 }

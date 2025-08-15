@@ -40,9 +40,8 @@ public class UserService {
             throw new IllegalArgumentException();
         }
         User user = optional.get();
-        UserInfo userInfo = user.getUserInfo();
-        userInfo.setName(dto.getUsername());
-        userInfo.setProfileImageUrl(dto.getProfileImageUrl());
+        user.setName(dto.getUsername());
+        user.setProfileImageUrl(dto.getProfileImageUrl());
         userRepository.save(user);
     }
 

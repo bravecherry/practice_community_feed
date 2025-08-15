@@ -8,7 +8,7 @@ class PositiveIntegerCounterTest {
     @Test
     void givenCreated_whenIncrease_thenCountIsOne() {
         //given
-        PositiveIntegerCounter counter = new PositiveIntegerCounter();
+        PositiveIntegerCounter counter = new PositiveIntegerCounter(followingCount);
         //when
         counter.increase();
         //then
@@ -18,7 +18,7 @@ class PositiveIntegerCounterTest {
     @Test
     void givenCreatedAndIncreased_whenDecrease_thenCountIsZero() {
         //given
-        PositiveIntegerCounter counter = new PositiveIntegerCounter();
+        PositiveIntegerCounter counter = new PositiveIntegerCounter(followingCount);
         counter.increase();
         //when
         counter.decrease();
@@ -29,7 +29,7 @@ class PositiveIntegerCounterTest {
     @Test
     void givenCreated_whenDecrease_thenCountIsZero() {
         //given
-        PositiveIntegerCounter counter = new PositiveIntegerCounter();
+        PositiveIntegerCounter counter = new PositiveIntegerCounter(followingCount);
         counter.increase();
         //when
         counter.decrease();

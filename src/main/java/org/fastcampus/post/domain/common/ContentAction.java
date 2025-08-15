@@ -19,10 +19,6 @@ public abstract class ContentAction {
         this.likeCounter = new PositiveIntegerCounter();
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void getLike(User user) {
         if (this.author.equals(user)) {
             throw new IllegalArgumentException();
