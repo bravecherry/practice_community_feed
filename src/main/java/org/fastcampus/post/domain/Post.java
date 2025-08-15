@@ -1,11 +1,15 @@
 package org.fastcampus.post.domain;
 
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.fastcampus.post.domain.common.ContentAction;
 import org.fastcampus.post.domain.content.Content;
 import org.fastcampus.post.domain.content.PostContent;
 import org.fastcampus.post.domain.content.PostVisibleState;
 import org.fastcampus.user.domain.User;
 
+@Getter
+@SuperBuilder
 public class Post extends ContentAction {
 
     private PostVisibleState visibleState;
@@ -30,10 +34,6 @@ public class Post extends ContentAction {
         }
         getContent().updateContent(content);
         this.visibleState = visibleState;
-    }
-
-    public PostVisibleState getVisibleState() {
-        return visibleState;
     }
 
 }

@@ -25,6 +25,9 @@ public class UserEntity extends TimeBasedEntity {
     private Integer followingCount;
     private Integer followerCounter;
 
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<PostEntity> postList;
+
     public UserEntity(User user) {
         this.id = user.getId();
         this.name = user.getName();

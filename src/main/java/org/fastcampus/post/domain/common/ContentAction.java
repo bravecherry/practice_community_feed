@@ -1,16 +1,20 @@
 package org.fastcampus.post.domain.common;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.fastcampus.common.domain.PositiveIntegerCounter;
 import org.fastcampus.post.domain.content.Content;
 import org.fastcampus.user.domain.User;
 
+@Getter
+@SuperBuilder
 public abstract class ContentAction {
 
-    private Long id;
-    private final User author;
-    private final Content content;
-    private final PositiveIntegerCounter likeCounter;
+    protected Long id;
+    protected User author;
+    protected Content content;
+    protected PositiveIntegerCounter likeCounter;
 
     public ContentAction(Long id, User author, Content content) {
         this.id = id;
@@ -34,16 +38,8 @@ public abstract class ContentAction {
         return likeCounter.getCount();
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
     public boolean isAuthor(User user) {
         return this.author.equals(user);
-    }
-
-    public Content getContent() {
-        return content;
     }
 
     public String getContentMessage() {

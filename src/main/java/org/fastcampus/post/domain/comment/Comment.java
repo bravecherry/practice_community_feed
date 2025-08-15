@@ -1,11 +1,15 @@
 package org.fastcampus.post.domain.comment;
 
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.fastcampus.post.domain.common.ContentAction;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.content.CommentContent;
 import org.fastcampus.post.domain.content.Content;
 import org.fastcampus.user.domain.User;
 
+@Getter
+@SuperBuilder
 public class Comment extends ContentAction {
 
     private final Post post;
