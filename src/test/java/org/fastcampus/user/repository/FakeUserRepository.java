@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import org.fastcampus.user.application.interfaces.UserRepository;
 import org.fastcampus.user.domain.User;
+import org.fastcampus.user.domain.UserInfo;
 
 public class FakeUserRepository implements UserRepository {
 
@@ -17,13 +18,13 @@ public class FakeUserRepository implements UserRepository {
             return user;
         }
         long id = users.size() + 1;
-        User newUser = new User(id, user.getInfo());
+        User newUser = new User(id, new UserInfo(user.getName(), user.getProfileImageUrl()));
         users.put(id, newUser);
         return newUser;
     }
 
     @Override
-    public Optional<User> findById(long userId) {
-        return Optional.ofNullable(users.get(userId));
+    public User findById(long userId) {
+        return users.get(userId);
     }
 }

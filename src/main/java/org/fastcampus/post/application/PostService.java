@@ -5,15 +5,18 @@ import org.fastcampus.post.application.dto.UpdatePostReqDto;
 import org.fastcampus.post.application.interfaces.PostRepository;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.user.domain.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PostService {
     private final PostRepository postRepository;
+
     public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
     public Post getPost(Long id) {
-        return postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return postRepository.findById(id);
     }
 
     public Post create(User author, CreatePostReqDto reqDto) {

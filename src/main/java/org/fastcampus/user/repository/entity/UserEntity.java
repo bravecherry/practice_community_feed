@@ -11,11 +11,13 @@ import org.fastcampus.common.domain.PositiveIntegerCounter;
 import org.fastcampus.common.repository.entity.TimeBasedEntity;
 import org.fastcampus.user.domain.User;
 import org.fastcampus.user.domain.UserInfo;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "community_user")
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
 public class UserEntity extends TimeBasedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

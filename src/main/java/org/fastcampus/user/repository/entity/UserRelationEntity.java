@@ -29,7 +29,7 @@ public class UserRelationEntity extends TimeBasedEntity {
     @EqualsAndHashCode
     @NoArgsConstructor
     @AllArgsConstructor
-    public class UserRelationIdEntity {
+    public static class UserRelationIdEntity {
         private Long followerUserId;
         private Long followingUserId;
     }
