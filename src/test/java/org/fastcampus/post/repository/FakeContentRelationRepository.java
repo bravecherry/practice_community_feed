@@ -11,17 +11,17 @@ public class FakeContentRelationRepository implements ContentRelationRepository 
     Set<Relation> map = new HashSet<>();
 
     @Override
-    public boolean alreadyLiked(User user, ContentAction contentAction) {
+    public boolean alreadyLiked(ContentAction contentAction, User user) {
         return map.contains(new Relation(user, contentAction));
     }
 
     @Override
-    public void like(User user, ContentAction contentAction) {
+    public void like(ContentAction contentAction, User user) {
         map.add(new Relation(user, contentAction));
     }
 
     @Override
-    public void dislike(User user, ContentAction contentAction) {
+    public void dislike(ContentAction contentAction, User user) {
         map.remove(new Relation(user, contentAction));
     }
 

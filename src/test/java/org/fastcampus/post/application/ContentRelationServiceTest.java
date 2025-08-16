@@ -26,10 +26,9 @@ public class ContentRelationServiceTest {
     private final FakeUserRepository userRepository = new FakeUserRepository();
     private final UserService userService = new UserService(userRepository);
     private final FakePostRepository postRepository = new FakePostRepository();
-    private final PostService postService = new PostService(postRepository);
     private final FakeContentRelationRepository contentRelationRepository = new FakeContentRelationRepository();
-    private final ContentRelationService contentRelationService = new ContentRelationService(
-            contentRelationRepository);
+    private final ContentRelationService contentRelationService = new ContentRelationService(contentRelationRepository);
+    private final PostService postService = new PostService(postRepository, userService, contentRelationService);
     private final FakeCommentRepository postCommentRepository = new FakeCommentRepository();
     private final CommentService commentService = new CommentService(
             postCommentRepository);
@@ -40,8 +39,8 @@ public class ContentRelationServiceTest {
         author = userService.createUser(reqDto);
         PostVisibleState state = PostVisibleState.PUBLIC;
         String content = "aaaaaaa";
-        CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, state);
-        post = postService.create(author, createPostReqDto);
+        CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, author.getId(), state);
+        post = postService.create(createPostReqDto);
         CreateCommentReqDto commentReqDto = new CreateCommentReqDto("comment1");
         comment = commentService.create(author, post, commentReqDto);
     }

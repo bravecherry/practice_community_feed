@@ -79,19 +79,10 @@ public class PostTest {
         String updateContent = "post content must be long222";
         PostVisibleState updateState = PostVisibleState.FOLLOWER_ONLY;
         //when
-        post.updatePost(author, updateContent, updateState);
+        post.updatePost(updateContent, updateState);
         //then
         assertEquals(updateContent, post.getContentMessage());
         assertEquals(updateState, post.getVisibleState());
-    }
-
-    @Test
-    void givenContent_whenUserIsNotAuthor_ThenThrowsException() {
-        //given
-        String updateContent = "post content must be long222";
-        PostVisibleState updateState = PostVisibleState.FOLLOWER_ONLY;
-        //then
-        assertThrows(IllegalArgumentException.class, () -> post.updatePost(user, updateContent, updateState));
     }
 
     @Test

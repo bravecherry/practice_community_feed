@@ -2,6 +2,6 @@ package org.fastcampus.post.application.dto;
 
 import org.fastcampus.post.domain.content.PostVisibleState;
 
-public record CreatePostReqDto(String content, PostVisibleState visibleState) {
+public record CreatePostReqDto(String content, Long userId, PostVisibleState visibleState) {
 
 }

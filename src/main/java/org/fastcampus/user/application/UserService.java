@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
+    public User getUser(Long id) {
+        return userRepository.findById(id);
+    }
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -31,10 +35,6 @@ public class UserService {
         user.setName(dto.getUsername());
         user.setProfileImageUrl(dto.getProfileImageUrl());
         userRepository.save(user);
-    }
-
-    protected User getUser(Long id) {
-        return userRepository.findById(id);
     }
 
 }

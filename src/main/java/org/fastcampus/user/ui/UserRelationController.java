@@ -19,12 +19,12 @@ public class UserRelationController {
     @PostMapping("/follow")
     public Response<Void> followUser(@RequestBody FollowUserReqDto reqDto) {
         userRelationService.follow(reqDto);
-        return Response.success(null);
+        return Response.ok(null);
     }
 
     @PostMapping("/unfollow")
     public Response<Void> unfollowUser(@RequestBody FollowUserReqDto reqDto) {
         userRelationService.unfollow(reqDto);
-        return Response.success(null);
+        return Response.ok(null);
     }
 }

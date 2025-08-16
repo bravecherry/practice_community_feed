@@ -5,8 +5,8 @@ import org.fastcampus.user.domain.User;
 
 public interface ContentRelationRepository {
 
-    boolean alreadyLiked(User user, ContentAction contentAction);
-    void like(User user, ContentAction contentAction);
-    void dislike(User user, ContentAction contentAction);
+    boolean alreadyLiked(ContentAction contentAction, User user);
+    void like(ContentAction contentAction, User user);
+    void dislike(ContentAction contentAction, User user);
 
 }

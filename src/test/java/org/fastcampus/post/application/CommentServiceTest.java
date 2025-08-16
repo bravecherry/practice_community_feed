@@ -13,6 +13,7 @@ import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.comment.Comment;
 import org.fastcampus.post.domain.content.PostVisibleState;
 import org.fastcampus.post.repository.FakeCommentRepository;
+import org.fastcampus.post.repository.FakeContentRelationRepository;
 import org.fastcampus.post.repository.FakePostRepository;
 import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.application.dto.CreateUserReqDto;
@@ -28,7 +29,9 @@ public class CommentServiceTest {
     private final FakeUserRepository userRepository = new FakeUserRepository();
     private final UserService userService = new UserService(userRepository);
     private final FakePostRepository postRepository = new FakePostRepository();
-    private final PostService postService = new PostService(postRepository);
+    private final FakeContentRelationRepository contentRelationRepository = new FakeContentRelationRepository();
+    private final ContentRelationService contentRelationService = new ContentRelationService(contentRelationRepository);
+    private final PostService postService = new PostService(postRepository, userService, contentRelationService);
     private final FakeCommentRepository postCommentRepository = new FakeCommentRepository();
     private final CommentService commentService = new CommentService(postCommentRepository);
 
@@ -38,8 +41,8 @@ public class CommentServiceTest {
         author = userService.createUser(reqDto);
         PostVisibleState state = PostVisibleState.PUBLIC;
         String content = "aaaaaaa";
-        CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, state);
-        post = postService.create(author, createPostReqDto);
+        CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, author.getId(), state);
+        post = postService.create(createPostReqDto);
         CreateCommentReqDto createCommentReqDto = new CreateCommentReqDto(content);
         comment = commentService.create(author, post, createCommentReqDto);
     }

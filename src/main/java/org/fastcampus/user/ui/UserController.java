@@ -7,7 +7,6 @@ import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.application.dto.CreateUserReqDto;
 import org.fastcampus.user.application.dto.GetUserListResDto;
 import org.fastcampus.user.application.dto.GetUserResDto;
-import org.fastcampus.user.application.interfaces.UserRepository;
 import org.fastcampus.user.domain.User;
 import org.fastcampus.user.repository.jpa.JpaUserListRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,25 +27,25 @@ public class UserController {
     @GetMapping("/{userId}")
     public Response<GetUserResDto> createUser(@PathVariable Long userId) {
         GetUserResDto resDto = userService.getUserProfile(userId);
-        return Response.success(resDto);
+        return Response.ok(resDto);
     }
 
     @PostMapping
     public Response<Long> createUser(@RequestBody CreateUserReqDto reqDto) {
         User user = userService.createUser(reqDto);
-        return Response.success(user.getId());
+        return Response.ok(user.getId());
     }
 
     @GetMapping("/{userId}/follower")
     public Response<List<GetUserListResDto>> getFollowerList(@PathVariable Long userId) {
         List<GetUserListResDto> results = jpaUserListRepository.getFollwerUserList(userId);
-        return Response.success(results);
+        return Response.ok(results);
     }
 
     @GetMapping("/{userId}/following")
     public Response<List<GetUserListResDto>> getFollowingList(@PathVariable Long userId) {
         List<GetUserListResDto> results = jpaUserListRepository.getFollwingUserList(userId);
-        return Response.success(results);
+        return Response.ok(results);
     }
 
 }

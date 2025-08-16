@@ -1,10 +1,12 @@
 package org.fastcampus.post.domain.content;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
 import org.fastcampus.post.domain.common.DateTimeInfo;
 
 public abstract class Content {
 
+    @Getter
     private String content;
     private DateTimeInfo dateTimeInfo;
 
@@ -22,10 +24,6 @@ public abstract class Content {
             this.content = content;
             this.dateTimeInfo.updateEdited();
         }
-    }
-
-    public String getContent() {
-        return content;
     }
 
     public Boolean isEdited() {

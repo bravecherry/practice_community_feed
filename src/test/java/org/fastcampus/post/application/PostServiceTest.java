@@ -7,6 +7,7 @@ import org.fastcampus.post.application.dto.CreatePostReqDto;
 import org.fastcampus.post.application.dto.UpdatePostReqDto;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.content.PostVisibleState;
+import org.fastcampus.post.repository.FakeContentRelationRepository;
 import org.fastcampus.post.repository.FakePostRepository;
 import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.application.dto.CreateUserReqDto;
@@ -21,7 +22,9 @@ public class PostServiceTest {
     private final FakeUserRepository userRepository = new FakeUserRepository();
     private final UserService userService = new UserService(userRepository);
     private final FakePostRepository postRepository = new FakePostRepository();
-    private final PostService postService = new PostService(postRepository);
+    private final FakeContentRelationRepository contentRelationRepository = new FakeContentRelationRepository();
+    private final ContentRelationService contentRelationService = new ContentRelationService(contentRelationRepository);
+    private final PostService postService = new PostService(postRepository, userService, contentRelationService);
 
     @BeforeEach
     void setUp() {
@@ -29,15 +32,15 @@ public class PostServiceTest {
         author = userService.createUser(reqDto);
         PostVisibleState state = PostVisibleState.PUBLIC;
         String content = "aaaaaaa";
-        CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, state);
-        post = postService.create(author, createPostReqDto);
+        CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, author.getId(), state);
+        post = postService.create(createPostReqDto);
     }
 
     @Test
     void givenId_whenFindById_thenReturnPost() {
         //given
-        CreatePostReqDto createPostReqDto = new CreatePostReqDto("aaaaaaa", PostVisibleState.PUBLIC );
-        Post newPost = postService.create(author, createPostReqDto);
+        CreatePostReqDto createPostReqDto = new CreatePostReqDto("aaaaaaa", author.getId(), PostVisibleState.PUBLIC );
+        Post newPost = postService.create(createPostReqDto);
         //then
         assertEquals(newPost, postService.getPost(newPost.getId()));
     }
@@ -47,9 +50,9 @@ public class PostServiceTest {
         //given
         PostVisibleState state = PostVisibleState.PUBLIC;
         String content = "aaaaaaa";
-        CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, state);
+        CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, author.getId(), state);
         //when
-        Post post = postService.create(author, createPostReqDto);
+        Post post = postService.create(createPostReqDto);
         //then
         assertNotNull(post.getId());
         assertEquals(content, post.getContentMessage());
@@ -62,9 +65,9 @@ public class PostServiceTest {
 
         String updateContent = "bbbbbbb";
         PostVisibleState updateState = PostVisibleState.FOLLOWER_ONLY;
-        UpdatePostReqDto reqDto = new UpdatePostReqDto(updateContent, updateState);
+        UpdatePostReqDto reqDto = new UpdatePostReqDto(updateContent, author.getId(), updateState);
         //when
-        postService.update(author, post, reqDto);
+        postService.update(post.getId(), reqDto);
         post = postService.getPost(post.getId());
         //then
         assertEquals(updateContent, post.getContentMessage());

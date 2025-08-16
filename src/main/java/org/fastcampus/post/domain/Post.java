@@ -28,10 +28,7 @@ public class Post extends ContentAction {
         this.visibleState = visibleState;
     }
 
-    public void updatePost(User user, String content, PostVisibleState visibleState) {
-        if (!getAuthor().equals(user)) {
-            throw new IllegalArgumentException();
-        }
+    public void updatePost(String content, PostVisibleState visibleState) {
         getContent().updateContent(content);
         this.visibleState = visibleState;
     }

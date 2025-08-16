@@ -9,8 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.fastcampus.common.repository.entity.TimeBasedEntity;
-import org.fastcampus.post.domain.Post;
-import org.fastcampus.post.domain.comment.Comment;
+import org.fastcampus.post.domain.common.ContentAction;
 import org.fastcampus.user.domain.User;
 
 @Entity
@@ -23,19 +22,15 @@ public class LikeEntity extends TimeBasedEntity {
     @EmbeddedId
     private LikeIdEntity id;
 
-    public LikeEntity(Post post, User likedUser) {
-        this.id = new LikeIdEntity(post.getId(), likedUser.getId(), LikeTarget.POST.name());
-    }
-
-    public LikeEntity(Comment comment, User likedUser) {
-        this.id = new LikeIdEntity(comment.getId(), likedUser.getId(), LikeTarget.COMMENT.name());
+    public LikeEntity(ContentAction contentAction, User likedUser) {
+        this.id = new LikeIdEntity(contentAction.getId(), likedUser.getId(), LikeTarget.POST.name());
     }
 
     @Embeddable
     @EqualsAndHashCode
     @AllArgsConstructor
     @NoArgsConstructor
-    public class LikeIdEntity {
+    public static class LikeIdEntity {
         private Long targetId;
         private Long userId;
         private String targetType;

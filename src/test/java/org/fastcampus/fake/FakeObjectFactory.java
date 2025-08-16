@@ -1,10 +1,14 @@
 package org.fastcampus.fake;
 
+import lombok.Getter;
 import org.fastcampus.post.application.CommentService;
+import org.fastcampus.post.application.ContentRelationService;
 import org.fastcampus.post.application.PostService;
 import org.fastcampus.post.application.interfaces.CommentRepository;
+import org.fastcampus.post.application.interfaces.ContentRelationRepository;
 import org.fastcampus.post.application.interfaces.PostRepository;
 import org.fastcampus.post.repository.FakeCommentRepository;
+import org.fastcampus.post.repository.FakeContentRelationRepository;
 import org.fastcampus.post.repository.FakePostRepository;
 import org.fastcampus.user.application.UserRelationService;
 import org.fastcampus.user.application.UserService;
@@ -15,47 +19,25 @@ import org.fastcampus.user.repository.FakeUserRepository;
 
 class FakeObjectFactory {
 
+    @Getter
     private final UserRepository userRepository = new FakeUserRepository();
+    @Getter
     private final UserRelationRepository userRelationRepository = new FakeUserRelationRepository();
+    @Getter
     private final PostRepository postRepository = new FakePostRepository();
+    @Getter
     private final CommentRepository commentRepository = new FakeCommentRepository();
 
+    @Getter
     private final UserService userService = new UserService(userRepository);
+    @Getter
     private final UserRelationService userRelationService = new UserRelationService(userRelationRepository, userService);
-    private final PostService postService = new PostService(postRepository);
+    private final ContentRelationRepository contentRelationRepository = new FakeContentRelationRepository();
+    private final ContentRelationService contentRelationService = new ContentRelationService(contentRelationRepository);
+    @Getter
+    private final PostService postService = new PostService(postRepository, userService, contentRelationService);
+    @Getter
     private final CommentService commentService = new CommentService(commentRepository);
-
-    public UserRepository getUserRepository() {
-        return userRepository;
-    }
-
-    public UserRelationRepository getUserRelationRepository() {
-        return userRelationRepository;
-    }
-
-    public PostRepository getPostRepository() {
-        return postRepository;
-    }
-
-    public CommentRepository getCommentRepository() {
-        return commentRepository;
-    }
-
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public UserRelationService getUserRelationService() {
-        return userRelationService;
-    }
-
-    public PostService getPostService() {
-        return postService;
-    }
-
-    public CommentService getCommentService() {
-        return commentService;
-    }
 
     private FakeObjectFactory() {
 
