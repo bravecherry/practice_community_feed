@@ -33,7 +33,7 @@ public class CommentServiceTest {
     private final ContentRelationService contentRelationService = new ContentRelationService(contentRelationRepository);
     private final PostService postService = new PostService(postRepository, userService, contentRelationService);
     private final FakeCommentRepository postCommentRepository = new FakeCommentRepository();
-    private final CommentService commentService = new CommentService(postCommentRepository);
+    private final CommentService commentService = new CommentService(postCommentRepository, userService, contentRelationService, postService);
 
     @BeforeEach
     void setUp() {
@@ -43,22 +43,17 @@ public class CommentServiceTest {
         String content = "aaaaaaa";
         CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, author.getId(), state);
         post = postService.create(createPostReqDto);
-        CreateCommentReqDto createCommentReqDto = new CreateCommentReqDto(content);
-        comment = commentService.create(author, post, createCommentReqDto);
-    }
-
-    @Test
-    void givenId_whenFindById_thenReturnComment() {
-        assertEquals(comment, commentService.getComment(comment.getId()));
+        CreateCommentReqDto createCommentReqDto = new CreateCommentReqDto(post.getId(), author.getId(), content);
+        comment = commentService.create(createCommentReqDto);
     }
 
     @Test
     void givenRequest_whenSave_thenReturnComment() {
         //given
         String content = "comment";
-        CreateCommentReqDto reqDto = new CreateCommentReqDto(content);
+        CreateCommentReqDto reqDto = new CreateCommentReqDto(post.getId(), author.getId(), content);
         //when
-        Comment newComment = commentService.create(author, post, reqDto);
+        Comment newComment = commentService.create(reqDto);
         assertEquals(content, newComment.getContentMessage());
     }
 
@@ -66,10 +61,9 @@ public class CommentServiceTest {
     void givenRequest_whenUpdate_thenSuccess() {
         //given
         String updateContent = "bbbbbbb";
-        UpdateCommentReqDto reqDto = new UpdateCommentReqDto(updateContent);
+        UpdateCommentReqDto reqDto = new UpdateCommentReqDto(author.getId(), updateContent);
         //when
-        commentService.update(author, comment, reqDto);
-        comment = commentService.getComment(comment.getId());
+        commentService.update(comment.getId(), reqDto);
         //then
         assertEquals(updateContent, comment.getContentMessage());
     }

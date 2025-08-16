@@ -17,7 +17,7 @@ public class LikeRepositoryImpl implements ContentRelationRepository {
     @Override
     public boolean alreadyLiked(ContentAction contentAction, User user) {
         LikeEntity likeEntity = new LikeEntity(contentAction, user);
-        return jpaLikeRepository.findById(likeEntity.getId()).isPresent();
+        return jpaLikeRepository.existsById(likeEntity.getId());
     }
 
     @Override

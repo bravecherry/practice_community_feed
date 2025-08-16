@@ -30,8 +30,7 @@ public class ContentRelationServiceTest {
     private final ContentRelationService contentRelationService = new ContentRelationService(contentRelationRepository);
     private final PostService postService = new PostService(postRepository, userService, contentRelationService);
     private final FakeCommentRepository postCommentRepository = new FakeCommentRepository();
-    private final CommentService commentService = new CommentService(
-            postCommentRepository);
+    private final CommentService commentService = new CommentService(postCommentRepository, userService, contentRelationService, postService);
 
     @BeforeEach
     void setUp() {
@@ -41,8 +40,8 @@ public class ContentRelationServiceTest {
         String content = "aaaaaaa";
         CreatePostReqDto createPostReqDto = new CreatePostReqDto(content, author.getId(), state);
         post = postService.create(createPostReqDto);
-        CreateCommentReqDto commentReqDto = new CreateCommentReqDto("comment1");
-        comment = commentService.create(author, post, commentReqDto);
+        CreateCommentReqDto commentReqDto = new CreateCommentReqDto(post.getId(), author.getId(), "comment1");
+        comment = commentService.create(commentReqDto);
     }
 
     @Test

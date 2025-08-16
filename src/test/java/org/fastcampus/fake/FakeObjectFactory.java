@@ -37,7 +37,7 @@ class FakeObjectFactory {
     @Getter
     private final PostService postService = new PostService(postRepository, userService, contentRelationService);
     @Getter
-    private final CommentService commentService = new CommentService(commentRepository);
+    private final CommentService commentService = new CommentService(commentRepository, userService, contentRelationService, postService);
 
     private FakeObjectFactory() {
 

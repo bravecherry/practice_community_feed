@@ -29,4 +29,11 @@ public class PostRepositoryImpl implements PostRepository {
         PostEntity postEntity = jpaPostRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         return postEntity.toPost();
     }
+
+    @Override
+    public void updateLikeCount(Post post) {
+        PostEntity postEntity = new PostEntity(post);
+        jpaPostRepository.updateLikeCount(postEntity);
+    }
+
 }

@@ -27,4 +27,9 @@ public class FakePostRepository implements PostRepository {
         return posts.get(id);
     }
 
+    @Override
+    public void updateLikeCount(Post post) {
+        posts.put(post.getId(), post);
+    }
+
 }

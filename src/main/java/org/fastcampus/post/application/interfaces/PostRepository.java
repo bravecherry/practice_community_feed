@@ -5,4 +5,6 @@ import org.fastcampus.post.domain.Post;
 public interface PostRepository {
     Post save(Post post);
     Post findById(Long id);
+
+    void updateLikeCount(Post post);
 }

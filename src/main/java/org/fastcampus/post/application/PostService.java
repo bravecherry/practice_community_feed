@@ -46,12 +46,14 @@ public class PostService {
         User user = userService.getUser(reqDto.userId());
         Post post = getPost(reqDto.targetId());
         contentRelationService.like(user, post);
+        postRepository.updateLikeCount(post);
     }
 
     public void dislike(LikeReqDto reqDto) {
         User user = userService.getUser(reqDto.userId());
         Post post = getPost(reqDto.targetId());
         contentRelationService.dislike(user, post);
+        postRepository.updateLikeCount(post);
     }
 
 }

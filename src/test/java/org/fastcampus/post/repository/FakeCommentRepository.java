@@ -3,12 +3,10 @@ package org.fastcampus.post.repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import org.fastcampus.post.application.interfaces.CommentRepository;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.comment.Comment;
 import org.fastcampus.post.domain.content.CommentContent;
-import org.fastcampus.user.domain.User;
 
 public class FakeCommentRepository implements CommentRepository {
 
@@ -27,8 +25,8 @@ public class FakeCommentRepository implements CommentRepository {
     }
 
     @Override
-    public Optional<Comment> findById(Long id) {
-        return Optional.ofNullable(comments.get(id));
+    public Comment findById(Long id) {
+        return comments.get(id);
     }
 
     @Override
@@ -37,8 +35,8 @@ public class FakeCommentRepository implements CommentRepository {
     }
 
     @Override
-    public List<Comment> findByUser(User user) {
-        return comments.values().stream().filter(it -> it.getAuthor().equals(user)).toList();
+    public void updateLikeCount(Comment comment) {
+        comments.put(comment.getId(), comment);
     }
 
 }
