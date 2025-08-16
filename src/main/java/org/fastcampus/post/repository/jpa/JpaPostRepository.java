@@ -1,5 +1,6 @@
 package org.fastcampus.post.repository.jpa;
 
+import java.util.List;
 import org.fastcampus.post.repository.entity.post.PostEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -27,4 +28,7 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
             + "set p.commentCount = p.commentCount + 1 "
             + "where p.id = :id")
     void increaseCommentCount(Long id);
+
+    @Query(value = "select p.id from PostEntity p where p.author.id = :userId")
+    List<Long> findPostIdListByAuthorId(Long userId);
 }

@@ -3,6 +3,7 @@ package org.fastcampus.user.repository;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.fastcampus.post.repository.post_queue.UserPostQueueRepositoryImpl;
 import org.fastcampus.user.application.interfaces.UserRelationRepository;
 import org.fastcampus.user.domain.User;
 import org.fastcampus.user.repository.entity.UserEntity;
@@ -18,6 +19,7 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
 
     private final JpaUserRelationRepository jpaUserRelationRepository;
     private final JpaUserRepository jpaUserRepository;
+    private final UserPostQueueRepositoryImpl userPostQueueRepositoryImpl;
 
     @Override
     public boolean alreadyFollows(User user, User targetUser) {
@@ -31,6 +33,7 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
         UserRelationEntity userRelation = new UserRelationEntity(user.getId(), targetUser.getId());
         jpaUserRelationRepository.save(userRelation);
         jpaUserRepository.saveAll(List.of(new UserEntity(user), new UserEntity(targetUser)));
+        userPostQueueRepositoryImpl.saveFollowerPost(user.getId(), targetUser.getId());
     }
 
     @Override
@@ -39,5 +42,6 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
         UserRelationIdEntity idInfo = new UserRelationIdEntity(user.getId(), targetUser.getId());
         jpaUserRelationRepository.deleteById(idInfo);
         jpaUserRepository.deleteAll(List.of(new UserEntity(user), new UserEntity(targetUser)));
+        userPostQueueRepositoryImpl.deleteFollowerPost(user.getId(), targetUser.getId());
     }
 }

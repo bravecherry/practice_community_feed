@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.fastcampus.common.domain.PositiveIntegerCounter;
 import org.fastcampus.common.repository.entity.TimeBasedEntity;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "community_user")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @DynamicUpdate
 public class UserEntity extends TimeBasedEntity {
     @Id
