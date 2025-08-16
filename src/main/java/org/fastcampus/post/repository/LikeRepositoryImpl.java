@@ -1,5 +1,7 @@
 package org.fastcampus.post.repository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.fastcampus.post.application.interfaces.ContentRelationRepository;
 import org.fastcampus.post.domain.common.ContentAction;
@@ -14,6 +16,12 @@ public class LikeRepositoryImpl implements ContentRelationRepository {
 
     private final JpaLikeRepository jpaLikeRepository;
 
+    // 기본적으로 save 메소드 호출 시 merge 가 발생하는데 추가 전 조회를 진행한다.
+    // 이때 조회하지 않고 바로 넣을 수 있도록 entityManager 애서 관리
+    // 다만 이렇게 하기 위해서는 어플리케이션 단에서 중복 확인을 반드시 해야 한다.(duplicate 에러 발생)
+    @PersistenceContext
+    private final EntityManager entityManager;
+
     @Override
     public boolean alreadyLiked(ContentAction contentAction, User user) {
         LikeEntity likeEntity = new LikeEntity(contentAction, user);
@@ -23,7 +31,7 @@ public class LikeRepositoryImpl implements ContentRelationRepository {
     @Override
     public void like(ContentAction contentAction, User user) {
         LikeEntity like = new LikeEntity(contentAction, user);
-        jpaLikeRepository.save(like);
+        entityManager.persist(like); // 불필요한 조회 없이 저장
     }
 
     @Override
