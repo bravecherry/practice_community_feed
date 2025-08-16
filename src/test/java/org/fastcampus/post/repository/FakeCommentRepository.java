@@ -34,9 +34,4 @@ public class FakeCommentRepository implements CommentRepository {
         return comments.values().stream().filter(it -> it.getPost().equals(post)).toList();
     }
 
-    @Override
-    public void updateLikeCount(Comment comment) {
-        comments.put(comment.getId(), comment);
-    }
-
 }

@@ -1,6 +1,5 @@
 package org.fastcampus.post.application;
 
-import jakarta.transaction.Transactional;
 import org.fastcampus.post.application.dto.CreatePostReqDto;
 import org.fastcampus.post.application.dto.LikeReqDto;
 import org.fastcampus.post.application.dto.UpdatePostReqDto;
@@ -43,20 +42,16 @@ public class PostService {
         postRepository.save(post);
     }
 
-    @Transactional
     public void like(LikeReqDto reqDto) {
         User user = userService.getUser(reqDto.userId());
         Post post = getPost(reqDto.targetId());
         contentRelationService.like(user, post);
-        postRepository.updateLikeCount(post);
     }
 
-    @Transactional
     public void dislike(LikeReqDto reqDto) {
         User user = userService.getUser(reqDto.userId());
         Post post = getPost(reqDto.targetId());
         contentRelationService.dislike(user, post);
-        postRepository.updateLikeCount(post);
     }
 
 }

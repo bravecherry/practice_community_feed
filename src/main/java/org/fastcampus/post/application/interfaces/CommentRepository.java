@@ -9,6 +9,4 @@ public interface CommentRepository {
     Comment save(Comment comment);
     Comment findById(Long id);
     List<Comment> findByPost(Post post);
-
-    void updateLikeCount(Comment comment);
 }

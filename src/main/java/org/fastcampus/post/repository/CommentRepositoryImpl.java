@@ -37,9 +37,4 @@ public class CommentRepositoryImpl implements CommentRepository {
         return list.stream().map(CommentEntity::toComment).toList();
     }
 
-    @Override
-    public void updateLikeCount(Comment comment) {
-        jpaCommentRepository.updateLikeCount(new CommentEntity(comment));
-    }
-
 }

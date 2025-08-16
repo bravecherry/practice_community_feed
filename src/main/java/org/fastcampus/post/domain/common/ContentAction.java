@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import org.fastcampus.common.domain.PositiveIntegerCounter;
 import org.fastcampus.post.domain.content.Content;
+import org.fastcampus.post.repository.entity.like.LikeTarget;
 import org.fastcampus.user.domain.User;
 
 @Getter
@@ -15,8 +16,9 @@ public abstract class ContentAction {
     protected User author;
     protected Content content;
     protected PositiveIntegerCounter likeCounter;
+    protected LikeTarget target;
 
-    public ContentAction(Long id, User author, Content content) {
+    public ContentAction(Long id, User author, Content content, LikeTarget target) {
         this.id = id;
         this.author = author;
         this.content = content;

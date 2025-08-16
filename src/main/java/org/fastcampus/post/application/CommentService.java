@@ -1,6 +1,5 @@
 package org.fastcampus.post.application;
 
-import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.fastcampus.post.application.dto.CreateCommentReqDto;
@@ -46,20 +45,16 @@ public class CommentService {
         return commentRepository.findByPost(post);
     }
 
-    @Transactional
     public void like(LikeReqDto reqDto) {
         User user = userService.getUser(reqDto.userId());
         Comment comment = getComment(reqDto.targetId());
         contentRelationService.like(user, comment);
-        commentRepository.updateLikeCount(comment);
     }
 
-    @Transactional
     public void dislike(LikeReqDto reqDto) {
         User user = userService.getUser(reqDto.userId());
         Comment comment = getComment(reqDto.targetId());
         contentRelationService.dislike(user, comment);
-        commentRepository.updateLikeCount(comment);
     }
 
 }

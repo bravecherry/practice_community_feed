@@ -6,6 +6,7 @@ import org.fastcampus.post.domain.common.ContentAction;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.content.CommentContent;
 import org.fastcampus.post.domain.content.Content;
+import org.fastcampus.post.repository.entity.like.LikeTarget;
 import org.fastcampus.user.domain.User;
 
 @Getter
@@ -19,7 +20,7 @@ public class Comment extends ContentAction {
     }
 
     public Comment(Long id, Post post, User author, Content content) {
-        super(id, author, content);
+        super(id, author, content, LikeTarget.COMMENT);
 
         if (author == null) {
             throw new IllegalArgumentException("author cannot be null");

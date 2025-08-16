@@ -30,10 +30,4 @@ public class PostRepositoryImpl implements PostRepository {
         return postEntity.toPost();
     }
 
-    @Override
-    public void updateLikeCount(Post post) {
-        PostEntity postEntity = new PostEntity(post);
-        jpaPostRepository.updateLikeCount(postEntity);
-    }
-
 }

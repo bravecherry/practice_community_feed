@@ -6,6 +6,7 @@ import org.fastcampus.post.domain.common.ContentAction;
 import org.fastcampus.post.domain.content.Content;
 import org.fastcampus.post.domain.content.PostContent;
 import org.fastcampus.post.domain.content.PostVisibleState;
+import org.fastcampus.post.repository.entity.like.LikeTarget;
 import org.fastcampus.user.domain.User;
 
 @Getter
@@ -19,7 +20,7 @@ public class Post extends ContentAction {
     }
 
     public Post(Long id, User author, Content content, PostVisibleState visibleState) {
-        super(id, author, content);
+        super(id, author, content, LikeTarget.POST);
 
         if (author == null) {
             throw new IllegalArgumentException("author cannot be null");
