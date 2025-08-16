@@ -20,6 +20,7 @@ import org.fastcampus.post.domain.content.PostContent;
 import org.fastcampus.post.domain.content.PostVisibleState;
 import org.fastcampus.post.repository.convert.PostVisibleStateConverter;
 import org.fastcampus.user.repository.entity.UserEntity;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "post")
@@ -33,6 +34,9 @@ public class PostEntity extends TimeBasedEntity {
     private Long id;
     private String content;
     private Integer likeCount;
+
+    @ColumnDefault("0")
+    private int commentCount;
 
     @ManyToOne
     @JoinColumn(name = "author_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
