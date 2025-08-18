@@ -40,10 +40,11 @@ public class LikeRepositoryImpl implements ContentRelationRepository {
         LikeEntity like = new LikeEntity(contentAction, user);
         entityManager.persist(like); // 불필요한 조회 없이 저장
         LikeTarget target = contentAction.getTarget();
+        int increaseCount = 1;
         if (target == LikeTarget.POST) {
-            jpaPostRepository.updateLikeCount(contentAction.getId(), contentAction.getLikeCount());
+            jpaPostRepository.updateLikeCount(contentAction.getId(), increaseCount);
         } else if (target == LikeTarget.COMMENT) {
-            jpaCommentRepository.updateLikeCount(contentAction.getId(), contentAction.getLikeCount());
+            jpaCommentRepository.updateLikeCount(contentAction.getId(), increaseCount);
         }
     }
 
@@ -53,10 +54,11 @@ public class LikeRepositoryImpl implements ContentRelationRepository {
         LikeEntity like = new LikeEntity(contentAction, user);
         jpaLikeRepository.delete(like);
         LikeTarget target = contentAction.getTarget();
+        int decreaseCount = -1;
         if (target == LikeTarget.POST) {
-            jpaPostRepository.updateLikeCount(contentAction.getId(), contentAction.getLikeCount());
+            jpaPostRepository.updateLikeCount(contentAction.getId(), decreaseCount);
         } else if (target == LikeTarget.COMMENT) {
-            jpaCommentRepository.updateLikeCount(contentAction.getId(), contentAction.getLikeCount());
+            jpaCommentRepository.updateLikeCount(contentAction.getId(), decreaseCount);
         }
     }
 

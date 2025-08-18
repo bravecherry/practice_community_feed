@@ -19,7 +19,7 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
 
     @Modifying
     @Query(value = "update PostEntity p "
-            + "set p.likeCount = :likeCount,"
+            + "set p.likeCount = p.likeCount + :likeCount,"
             + "p.modDtm=now() "
             + "where p.id=:postId")
     void updateLikeCount(Long postId, Integer likeCount);
