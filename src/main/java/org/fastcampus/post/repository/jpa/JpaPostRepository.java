@@ -11,10 +11,10 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
 
     @Modifying
     @Query(value = "update PostEntity p "
-            + "set p.content = :#{#postEntity.getContent()},"
+            + "set p.content = :#{#postEntity.content},"
             + "p.state = :#{#postEntity.state},"
             + "p.modDtm = now() "
-            + "where p.id = :#{#postEntity.id}}")
+            + "where p.id = :#{#postEntity.id}")
     void updatePost(PostEntity postEntity);
 
     @Modifying
@@ -29,6 +29,6 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
             + "where p.id = :id")
     void increaseCommentCount(Long id);
 
-    @Query(value = "select p.id from PostEntity p where p.author.id = :userId")
-    List<Long> findPostIdListByAuthorId(Long userId);
+    @Query(value = "select p from PostEntity p where p.author.id = :userId")
+    List<PostEntity> findPostEntitiesByAuthorId(Long userId);
 }

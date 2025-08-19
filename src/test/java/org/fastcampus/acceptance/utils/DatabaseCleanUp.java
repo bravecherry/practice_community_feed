@@ -39,7 +39,7 @@ public class DatabaseCleanUp implements InitializingBean {
         // 혹시 모를 수행이 아직 안된 쿼리문을 모두 반영
         entityManager.flush();
         // 테이블 삭제 전에 F키와 같은 설정 값들이 있을 때 삭제 제한이 걸리지 않도록 변경하는 옵션
-        entityManager.createNativeQuery("SET REFERENCIAL_INTEGRITY FALSE").executeUpdate();
+        entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate();
         for (String tableName : tableNameList) {
             // truncate table
             entityManager.createNativeQuery("truncate table " + tableName).executeUpdate();
@@ -50,6 +50,6 @@ public class DatabaseCleanUp implements InitializingBean {
             }
         }
         // 위의 수정 사항 반영 (truncate 하고, id: 1로 맞추기)
-        entityManager.createNativeQuery("SET REFERENCIAL_INTEGRITY TRUE").executeUpdate();
+        entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE").executeUpdate();
     }
 }

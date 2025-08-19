@@ -2,7 +2,6 @@ package org.fastcampus.acceptance;
 
 import static org.fastcampus.acceptance.steps.FeedAcceptanceStep.reqCreatePost;
 import static org.fastcampus.acceptance.steps.FeedAcceptanceStep.requestFeed;
-import static org.fastcampus.post.domain.Post.createPost;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -11,8 +10,9 @@ import org.fastcampus.post.application.dto.CreatePostReqDto;
 import org.fastcampus.post.domain.content.PostVisibleState;
 import org.fastcampus.post.ui.dto.GetPostContentResDto;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-class FeedAcceptanceStep extends AcceptanceTestTemplate {
+class FeedAcceptanceTest extends AcceptanceTestTemplate {
 
     /**
      * user1 --- follow ---> user2
@@ -27,6 +27,7 @@ class FeedAcceptanceStep extends AcceptanceTestTemplate {
      * user2 posts a post
      * user1 gets user2's post on feed
      */
+    @Test
     void givenUserHasFollower_whenFollowingUserPostsAPost_thenFeedUpdated() {
         //given
         CreatePostReqDto reqDto = new CreatePostReqDto("post post post post post ", 2L, PostVisibleState.PUBLIC);

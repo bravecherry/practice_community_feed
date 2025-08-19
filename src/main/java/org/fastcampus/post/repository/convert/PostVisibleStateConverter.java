@@ -7,6 +7,9 @@ public class PostVisibleStateConverter implements AttributeConverter<PostVisible
 
     @Override
     public String convertToDatabaseColumn(PostVisibleState visibleState) {
+        if (visibleState == null) {
+            return null;
+        }
         return visibleState.name();
     }
 
