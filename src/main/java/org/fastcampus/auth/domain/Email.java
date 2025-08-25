@@ -14,7 +14,7 @@ public class Email {
         this.email = email;
     }
 
-    public static Email of(String email) {
+    public static Email createEmail(String email) {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("email cannot be null or empty");
         }

@@ -27,7 +27,7 @@ class EmailTest {
     void givenValidEmail_whenCreate_thenThrowsError(String emailValue) {
 
         //when
-        Email email = new Email(emailValue);
+        Email email = Email.createEmail(emailValue);
 
         //then
         assertEquals(emailValue, email.getEmail());

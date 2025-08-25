@@ -1,8 +1,8 @@
 package org.fastcampus.auth.domain.repository;
 
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.fastcampus.auth.application.EmailService;
 import org.fastcampus.auth.application.interfaces.EmailVerificationRepository;
 import org.fastcampus.auth.domain.Email;
 import org.fastcampus.auth.domain.repository.entity.EmailVerificationEntity;
@@ -14,23 +14,41 @@ import org.springframework.stereotype.Repository;
 public class EmailVerificationRepositoryImpl implements EmailVerificationRepository {
 
     private final JpaEmailVerificationRepository jpaEmailVerificationRepository;
-    private final EmailService emailService;
 
     @Override
+    @Transactional
     public void createEmailVerification(Email email, String token) {
         String emailValue = email.getEmail();
-        Optional<EmailVerificationEntity> entity = jpaEmailVerificationRepository.findByEmail(emailValue);
+        Optional<EmailVerificationEntity> optional = jpaEmailVerificationRepository.findByEmail(emailValue);
 
-        if (entity.isPresent()) {
-            EmailVerificationEntity entity1 = entity.get();
-            if (entity1.isVerified()) {
+        if (optional.isPresent()) {
+            EmailVerificationEntity entity = optional.get();
+            if (entity.isVerified()) {
                 throw new IllegalArgumentException("email already exists");
             }
-            entity1.updateToken(token);
+            entity.updateToken(token);
             return;
         }
 
-        EmailVerificationEntity entity3 = new EmailVerificationEntity(emailValue, token);
-        jpaEmailVerificationRepository.save(entity3);
+        EmailVerificationEntity entity = new EmailVerificationEntity(emailValue, token);
+        jpaEmailVerificationRepository.save(entity);
+    }
+
+    @Override
+    @Transactional
+    public void verifyEmail(Email email, String token) {
+        String emailValue = email.getEmail();
+        EmailVerificationEntity entity = jpaEmailVerificationRepository.findByEmail(emailValue)
+                .orElseThrow(() -> new IllegalArgumentException("email not found"));
+
+        if (!entity.hasSameToken(token)) {
+            throw new IllegalArgumentException("token does not match");
+        }
+
+        if (entity.isVerified()) {
+            throw new IllegalArgumentException("email already verified");
+        }
+
+        entity.verify();
     }
 }

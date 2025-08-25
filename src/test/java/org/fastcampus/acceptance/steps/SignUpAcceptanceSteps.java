@@ -12,7 +12,19 @@ public class SignUpAcceptanceSteps {
                 .body(reqDto)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .post("/sign/up/send-verification/email")
+                .post("/sign/up/verification/send/email")
+                .then()
+                .extract()
+                .jsonPath().get("code");
+    }
+
+    public static Integer requestVerifyEmail(String email, String token) {
+        return RestAssured
+                .given()
+                .queryParam("email", email)
+                .queryParam("token", token)
+                .when()
+                .get("/sign/up/verify/token")
                 .then()
                 .extract()
                 .jsonPath().get("code");

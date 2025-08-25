@@ -5,6 +5,7 @@ import static org.fastcampus.acceptance.steps.UserAcceptanceSteps.followUser;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.fastcampus.auth.domain.repository.entity.EmailVerificationEntity;
 import org.fastcampus.user.application.dto.CreateUserReqDto;
 import org.fastcampus.user.application.dto.FollowUserReqDto;
 import org.springframework.stereotype.Component;
@@ -33,4 +34,11 @@ public class DataLoader {
                 .getSingleResult()
                 .toString();
     }
+
+    public boolean isEmailVerified(String email) {
+        return entityManager.createQuery("select e.isVerified from EmailVerificationEntity e where e.email = :email", Boolean.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
 }
