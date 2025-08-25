@@ -6,7 +6,7 @@ import org.fastcampus.post.application.dto.CreatePostReqDto;
 import org.fastcampus.post.ui.dto.GetPostContentResDto;
 import org.springframework.http.MediaType;
 
-public class FeedAcceptanceStep {
+public class FeedAcceptanceSteps {
 
     public static Long reqCreatePost(CreatePostReqDto reqDto) {
         return RestAssured

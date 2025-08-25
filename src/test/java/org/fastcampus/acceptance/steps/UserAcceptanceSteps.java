@@ -7,7 +7,7 @@ import org.fastcampus.user.application.dto.CreateUserReqDto;
 import org.fastcampus.user.application.dto.FollowUserReqDto;
 import org.springframework.http.MediaType;
 
-public class UserAcceptanceStep {
+public class UserAcceptanceSteps {
 
     public static ExtractableResponse<Response> createUser(CreateUserReqDto reqDto) {
         return RestAssured

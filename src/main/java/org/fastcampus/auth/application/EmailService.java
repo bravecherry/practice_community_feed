@@ -1,0 +1,26 @@
+package org.fastcampus.auth.application;
+
+import lombok.RequiredArgsConstructor;
+import org.fastcampus.auth.application.dto.SendEmailReqDto;
+import org.fastcampus.auth.application.interfaces.EmailVerificationRepository;
+import org.fastcampus.auth.application.interfaces.SendEmailRepository;
+import org.fastcampus.auth.domain.Email;
+import org.fastcampus.auth.domain.RandomTokenGenerator;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class EmailService {
+
+    private SendEmailRepository sendEmailRepository;
+    private EmailVerificationRepository emailVerificationRepository;
+
+    public void sendEmail(SendEmailReqDto reqDto) {
+        Email email = new Email(reqDto.email());
+        String token = RandomTokenGenerator.generateToken();
+
+        sendEmailRepository.sendEmail(email, token);
+        emailVerificationRepository.createEmailVerification(email, token);
+    }
+
+}

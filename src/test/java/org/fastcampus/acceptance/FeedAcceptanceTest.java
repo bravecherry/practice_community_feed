@@ -1,7 +1,7 @@
 package org.fastcampus.acceptance;
 
-import static org.fastcampus.acceptance.steps.FeedAcceptanceStep.reqCreatePost;
-import static org.fastcampus.acceptance.steps.FeedAcceptanceStep.requestFeed;
+import static org.fastcampus.acceptance.steps.FeedAcceptanceSteps.reqCreatePost;
+import static org.fastcampus.acceptance.steps.FeedAcceptanceSteps.requestFeed;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
