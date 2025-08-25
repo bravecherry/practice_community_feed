@@ -34,4 +34,8 @@ public class AcceptanceTestTemplate {
         return loader.isEmailVerified(email);
     }
 
+    protected Long getUserId(String email) {
+        return loader.getUserId(email);
+    }
+
 }

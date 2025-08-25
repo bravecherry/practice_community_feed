@@ -31,7 +31,11 @@ public class DatabaseCleanUp implements InitializingBean {
                 .toList();
 
         // id가 자동생성되지 않는 테이블 관리
-        notGeneratedTableNameList = List.of("user_community_relation", "content_like");
+        notGeneratedTableNameList = List.of("user_community_relation",
+                "content_like",
+                "community_user_auth",
+                "community_user_relation",
+                "community_like");
     }
 
     @Transactional

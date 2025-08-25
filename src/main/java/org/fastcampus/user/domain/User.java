@@ -18,6 +18,10 @@ public class User {
     private PositiveIntegerCounter followingCounter;
     private PositiveIntegerCounter followerCounter;
 
+    public User(String name, String profileImageUrl) {
+        this(null, new UserInfo(name, profileImageUrl));
+    }
+
     public User(Long id, UserInfo info) {
         if (info == null) {
             throw new IllegalArgumentException("userInfo cannot be null");
